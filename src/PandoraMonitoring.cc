@@ -1416,6 +1416,7 @@ void PandoraMonitoring::InitializeEve(Char_t transparency)
             TGeoMedium *pAluminium = new TGeoMedium("Aluminium", 2, pAluminiumMaterial);
 
             const bool pandoraTopVolumeExists((nullptr != pGeoManager->GetTopVolume()) && (m_monitoringInstanceMap.size() > 1));
+            std::cout << "Pandora top volume exists ? " << pandoraTopVolumeExists << std::endl;
             TGeoVolume *pMainDetectorVolume =
                 pandoraTopVolumeExists ? pGeoManager->GetTopVolume() : pGeoManager->MakeBox("Detector", pVacuum, 1000., 1000., 10000.);
 
@@ -1645,6 +1646,7 @@ void PandoraMonitoring::InitializeSubDetectors(TGeoVolume *pMainDetectorVolume, 
     int color(2);
     for (SubDetectorMap::const_iterator iter = subDetectorMap.begin(); iter != subDetectorMap.end(); ++iter)
     {
+        std::cout << "Initializing subdetector " << iter->first << std::endl;
         bool isLeft = true;
         for (int lr = 0; lr <= 1; ++lr)
         {
@@ -1696,6 +1698,8 @@ void PandoraMonitoring::InitializeSubDetectors(TGeoVolume *pMainDetectorVolume, 
 
 void PandoraMonitoring::InitializeGaps(TGeoVolume *pMainDetectorVolume, TGeoMedium *pGapMedium, Char_t transparency)
 {
+    std::cout << "Initializing gaps" << std::endl;
+    
     LineGapVector lineGapVector;
     BoxGapVector boxGapVector;
     ConcentricGapVector concentricGapVector;
